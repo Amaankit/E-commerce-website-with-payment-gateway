@@ -1,0 +1,40 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Buy Now{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+ <div class="row">
+  <div class="col-sm-3">
+   
+   <div class="list-group">
+    <a href="{% url 'bottomwear' 'all' %}" class="list-group-item list-group-item-secondary {% ifequal active 'all' %}active{% endifequal %}"  aria-current="true">All Bottomwears</a>   
+    <a href="{% url 'bottomwear' 'mens' %}" class="list-group-item list-group-item-secondary {% ifequal active 'mens'%}active{% endifequal %}" aria-current="true">Men's Bottomwears</a>   
+    <a href="{% url 'bottomwear' 'womens' %}" class="list-group-item list-group-item-secondary {% ifequal active 'womens'%}active{% endifequal %}" aria-current="true">Women's Bottomwears</a>   
+    <a href="{% url 'bottomwear' 'below' %}" class="list-group-item list-group-item-secondary {% ifequal active  'below'%}active{% endifequal %}" aria-current="true">Below 1000</a>   
+    <a href="{% url 'bottomwear' 'above' %}" class="list-group-item list-group-item-secondary  {% ifequal active 'above'%}active{% endifequal %}" aria-current="true">Above 1000</a>   
+   </div>
+  </div>
+  <div class="col-sm-8 offset-sm-1">
+   Bottomwears:
+   <div class="row">
+       {% for bw in bottomwears %}
+       <div class="col-sm-5 offset-sm-1 text-center mb-5 ">
+
+         <a href="{% url 'product-detail' pk=bw.id %}" class="btn">
+            <div class="item">
+                <img src={{bw.product_image.url}} alt="" class="" height="200">
+                <div class="fw-bold">{{bw.title}}</div>
+                <div class="fw-bold">RS {{bw.discounted_price}}
+                    <small class="fw-light text-decoration-line-through">{{bw.selling_price}}</small>
+                </div><div></div>
+            </div>
+         </a>
+
+       </div>
+       {% endfor %}
+
+   </div>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}

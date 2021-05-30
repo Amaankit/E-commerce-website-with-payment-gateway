@@ -1,0 +1,39 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+{% block main-content %}
+<div class="container">
+ <div class="row my-3">
+  <div class="col-sm-6 offset-sm-3">
+   <h3>Login</h3>
+   <hr>
+   <form action="" method="post" novalidate class="shadow p-5">
+    {% csrf_token %}
+   <div class="text-center my-1"><i class="fa fa-user fa-5x " aria-hidden="true"></i></div> 
+   {% if messages %}
+        {% for message in messages %}
+        <p {% if message.tags %} class='alert alert-{{message.tags}} mb-4' {% endif %}>{{message}}</p>
+        {% endfor %}
+   {% endif %}
+   
+    <div class="mb-3">
+     {% for fm in form %}
+               <div class="mt-4 bd-highlight">{{fm.label_tag}}{% if fm.field.required %}<span class="Isrequired" style="color: red;">*</span>{% endif %} {{fm}}<span class="Errr mt-0" style="color:red;">{{fm.errors|striptags}}</span>    
+               </div>
+     {% endfor %}
+    </div>
+    <small><a href="{% url 'password_reset' %}">Forgot Password ?</a></small> <br>
+    <input type="submit" class="btn btn-primary mt-4" value="Login">
+    <br>
+    <div class="text-center text-primary fw-bold"><small>New to ShoppinglyX ? <a href="{% url 'customerregistration' %}"
+       class="text-danger">Create an Account</a> </small></div>
+    {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            <p class="alert alert-danger my-3">{{error}}</p>
+        {% endfor %}
+    {% endif %}
+   </form>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}
